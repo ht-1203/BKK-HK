@@ -3,405 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hong Kong Travel Plan 2026</title>
+    <title>Hong Kong Elite Plan 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Kanit:wght@200;400;500&display=swap');
         
         body {
-            font-family: 'Kanit', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
+            font-family: 'Inter', 'Kanit', sans-serif;
+            background-color: #000;
+            color: #fff;
         }
 
-        .dynamic-island {
-            width: 180px;
-            height: 35px;
-            background: black;
-            border-radius: 20px;
+        .minimal-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .minimal-card:active {
+            background: #1a1a1a;
+            border-color: #3b82f6;
+        }
+
+        .island-static {
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 30px;
+            padding: 8px 16px;
+            width: fit-content;
             margin: 20px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-            cursor: pointer;
-            overflow: hidden;
-            position: sticky;
-            top: 10px;
-            z-index: 1000;
+            font-size: 11px;
+            letter-spacing: 1px;
+            color: #888;
         }
 
-        .dynamic-island:hover {
-            width: 320px;
-            height: 80px;
-            border-radius: 35px;
-        }
-
-        .island-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .dynamic-island:hover .island-content {
-            display: block;
-            opacity: 1;
-        }
-
-        .dynamic-island:hover .island-pill {
-            display: none;
-        }
-
-        .dark-mode {
-            background-color: #121212;
-            color: #e0e0e0;
-        }
-
-        .dark-mode .card {
-            background-color: #1e1e1e;
-            border-color: #333;
-        }
-
-        .card {
-            background-color: white;
-            border: 1px solid #e5e7eb;
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .step-line::before {
-            content: '';
-            position: absolute;
-            left: 0.75rem;
-            top: 2rem;
-            bottom: 0;
-            width: 2px;
-            background: #3b82f6;
-        }
-
-        .place-card {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .place-card:active {
-            transform: scale(0.98);
-        }
-
-        .place-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
+        .accent-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #333, transparent);
+            margin: 2rem 0;
         }
 
         .lang-btn {
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: bold;
-            transition: all 0.2s;
+            font-size: 10px;
+            padding: 4px 12px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #666;
         }
 
         .lang-active {
-            background: #3b82f6;
-            color: white;
+            border-color: #fff;
+            color: #fff;
         }
 
-        .map-hint {
-            font-size: 10px;
+        .badge-status {
+            font-size: 9px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: #3b82f6;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .map-trigger {
             color: #3b82f6;
-            margin-top: 4px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            font-size: 12px;
+            text-decoration: underline;
+            margin-top: 8px;
+            display: inline-block;
         }
     </style>
 </head>
-<body class="dark-mode p-4 pb-12">
+<body class="p-6 max-w-md mx-auto">
 
-    <!-- Dynamic Island -->
-    <div class="dynamic-island shadow-2xl">
-        <div class="island-pill text-[10px] font-medium tracking-widest uppercase">
-            <i class="fas fa-plane-departure mr-2 text-blue-400"></i> <span data-i18n="island-pill">HK Trip 2026</span>
-        </div>
-        <div class="island-content w-full px-4 py-2 text-white">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                    <div class="bg-blue-600 p-2 rounded-full">
-                        <i class="fas fa-plane text-white text-xs"></i>
-                    </div>
-                    <div>
-                        <p class="text-[10px] text-gray-400" data-i18n="next-flight">เที่ยวบินถัดไป</p>
-                        <p class="text-xs font-bold">BKK → HKG (UO703)</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="text-xs font-bold text-blue-400">19:40 น.</p>
-                    <p class="text-[10px] text-gray-400">22 Apr 26</p>
-                </div>
-            </div>
-        </div>
+    <!-- Status Island -->
+    <div class="island-static uppercase font-medium">
+        <i class="fas fa-circle text-[6px] text-blue-500 mr-2 animate-pulse"></i>
+        <span data-i18n="island-pill">HK EXCLUSIVE 2026</span>
     </div>
 
-    <!-- Language & Theme Selector -->
-    <div class="flex justify-between items-center mb-6 px-2">
-        <div class="flex gap-2">
-            <button onclick="setLang('th')" id="btn-th" class="lang-btn lang-active bg-gray-700">ไทย</button>
-            <button onclick="setLang('en')" id="btn-en" class="lang-btn bg-gray-700">EN</button>
-            <button onclick="setLang('cn')" id="btn-cn" class="lang-btn bg-gray-700">中文</button>
-        </div>
-        <button id="themeToggle" class="bg-gray-700 w-8 h-8 rounded-lg flex items-center justify-center text-xs">
-            <i class="fas fa-sun"></i>
-        </button>
+    <!-- Language Selector -->
+    <div class="flex justify-center gap-3 mb-10">
+        <button onclick="setLang('th')" id="btn-th" class="lang-btn lang-active">TH</button>
+        <button onclick="setLang('en')" id="btn-en" class="lang-btn">EN</button>
+        <button onclick="setLang('cn')" id="btn-cn" class="lang-btn">CN</button>
     </div>
 
-    <!-- Header -->
-    <header class="mb-8 text-center">
-        <h1 class="text-3xl font-bold mb-2" data-i18n="title">My Hong Kong Journey</h1>
-        <p class="text-gray-400" data-i18n="subtitle">22 - 26 เมษายน 2026 (5 วัน 4 คืน)</p>
+    <!-- Title Section -->
+    <header class="mb-10 text-left">
+        <h1 class="text-4xl font-light tracking-tighter mb-2" data-i18n="title">HONG KONG</h1>
+        <div class="flex items-center gap-2">
+            <span class="badge-status">Confirmed</span>
+            <p class="text-xs text-gray-500" data-i18n="subtitle">22-26 APR 2026 / 5 DAYS</p>
+        </div>
     </header>
 
-    <!-- Quick Info Tabs -->
-    <div class="grid grid-cols-2 gap-3 mb-6">
-        <div class="card flex flex-col items-center justify-center place-card" onclick="openMap('hotel')">
-            <i class="fas fa-hotel text-2xl text-yellow-500 mb-2"></i>
-            <span class="text-xs text-gray-400" data-i18n="accommodation">ที่พัก</span>
-            <span class="text-sm font-bold">Ramada Grand</span>
-            <span class="map-hint"><i class="fas fa-map-marker-alt"></i> Tap to Map</span>
+    <!-- Essential Info (Hotel Focus) -->
+    <div class="grid grid-cols-1 gap-4 mb-8">
+        <div class="minimal-card cursor-pointer" onclick="openMap('hotel')">
+            <p class="text-[10px] text-gray-500 uppercase mb-1" data-i18n="accommodation">STAYING AT</p>
+            <h2 class="text-xl font-medium text-blue-400">Ramada Grand Hotel</h2>
+            <p class="text-xs text-gray-400 mt-1" data-i18n="hotel-loc">Tsim Sha Tsui, Kowloon</p>
+            <span class="map-trigger"><i class="fas fa-location-arrow mr-1"></i> <span data-i18n="open-map">Open in Maps</span></span>
         </div>
-        <div class="card flex flex-col items-center justify-center text-center">
-            <i class="fas fa-suitcase-rolling text-2xl text-green-500 mb-2"></i>
-            <span class="text-xs text-gray-400" data-i18n="baggage">น้ำหนักกระเป๋า</span>
-            <span class="text-[10px] font-bold" data-i18n="baggage-detail">ไป: 20kg / กลับ: 20kg</span>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="minimal-card text-center">
+                <p class="text-[10px] text-gray-500 uppercase mb-1" data-i18n="baggage-label">BAGGAGE</p>
+                <p class="text-sm">20KG / 20KG</p>
+            </div>
+            <div class="minimal-card text-center">
+                <p class="text-[10px] text-gray-500 uppercase mb-1" data-i18n="weather-label">WEATHER</p>
+                <p class="text-sm">22°C - 26°C</p>
+            </div>
         </div>
     </div>
 
-    <!-- Flight Info -->
-    <section class="mb-8">
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-            <i class="fas fa-ticket-alt text-blue-500"></i> <span data-i18n="flight-info">ข้อมูลการเดินทาง</span>
-        </h2>
-        
-        <div class="card border-l-4 border-l-blue-500">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <span class="bg-blue-900 text-blue-200 text-[10px] px-2 py-1 rounded-full uppercase font-bold" data-i18n="outbound">ขาไป - HK Express</span>
-                    <h3 class="text-lg font-bold mt-1">BKK (สุวรรณภูมิ) → HKG</h3>
-                </div>
-            </div>
-            <div class="flex justify-between items-center bg-gray-800 p-3 rounded-xl mb-3">
-                <div class="text-center">
-                    <p class="text-xl font-bold">19:40</p>
-                    <p class="text-[10px] text-gray-400">22 Apr 2026</p>
-                </div>
-                <i class="fas fa-plane text-gray-600"></i>
-                <div class="text-center">
-                    <p class="text-xl font-bold">23:40</p>
-                    <p class="text-[10px] text-gray-400">Terminal 1</p>
-                </div>
-            </div>
-            <p class="text-xs text-blue-400 font-bold"><i class="fas fa-check-circle mr-1"></i> <span data-i18n="baggage-20">น้ำหนักสัมภาระโหลด: 20kg (อัปเดตแล้ว)</span></p>
-        </div>
+    <div class="accent-line"></div>
 
-        <div class="card border-l-4 border-l-green-500">
-            <div class="flex justify-between items-start mb-4">
-                <div>
-                    <span class="bg-green-900 text-green-200 text-[10px] px-2 py-1 rounded-full uppercase font-bold" data-i18n="inbound">ขากลับ - Thai Lion Air</span>
-                    <h3 class="text-lg font-bold mt-1">HKG → DMK (ดอนเมือง)</h3>
-                </div>
+    <!-- Flight Recap -->
+    <div class="mb-10">
+        <h3 class="text-xs font-bold text-gray-500 uppercase mb-4 tracking-widest" data-i18n="flight-info">FLIGHT DETAILS</h3>
+        <div class="space-y-4">
+            <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-400">BKK - HKG (UO703)</span>
+                <span class="font-mono">19:40 - 23:40</span>
             </div>
-            <div class="flex justify-between items-center bg-gray-800 p-3 rounded-xl mb-3">
-                <div class="text-center">
-                    <p class="text-xl font-bold">20:20</p>
-                    <p class="text-[10px] text-gray-400">26 Apr 2026</p>
-                </div>
-                <i class="fas fa-plane text-gray-600 fa-flip-horizontal"></i>
-                <div class="text-center">
-                    <p class="text-xl font-bold">22:05</p>
-                    <p class="text-[10px] text-gray-400">Don Mueang</p>
-                </div>
+            <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-400">HKG - DMK (SL591)</span>
+                <span class="font-mono">20:20 - 22:05</span>
             </div>
-            <p class="text-xs text-gray-400"><i class="fas fa-utensils mr-1"></i> <span data-i18n="meal-included">รวมน้ำหนัก 20kg และอาหารบนเครื่อง</span></p>
         </div>
-    </section>
+    </div>
 
-    <!-- Itinerary with Tap-to-Map Images -->
-    <section>
-        <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-            <i class="fas fa-map-marked-alt text-red-500"></i> <span data-i18n="itinerary-title">แผนการเที่ยวรายวัน</span>
-        </h2>
+    <!-- Detailed Itinerary -->
+    <div class="space-y-8">
+        <h3 class="text-xs font-bold text-gray-500 uppercase mb-4 tracking-widest" data-i18n="itinerary-title">ITINERARY</h3>
 
         <!-- Day 1 -->
-        <div class="relative pl-8 mb-6">
-            <div class="absolute left-0 top-0 bg-blue-500 w-6 h-6 rounded-full flex items-center justify-center z-10">
-                <span class="text-[10px] text-white font-bold">22</span>
-            </div>
-            <div class="step-line relative">
-                <h3 class="font-bold text-blue-400" data-i18n="d1-title">22 เม.ย. - เดินทางถึงฮ่องกง</h3>
-                <div class="card mt-2 place-card" onclick="openMap('hotel')">
-                    <img src="https://images.unsplash.com/photo-1543872084-c7bd3822856f?auto=format&fit=crop&w=600&q=80" alt="HK Airport" class="place-img">
-                    <p class="text-sm font-bold mb-1"><i class="fas fa-map-pin text-red-500 mr-1"></i> Ramada Grand Hotel</p>
-                    <p class="text-xs text-gray-400" data-i18n="d1-desc">บินถึงเวลา 23:40 น. เข้าเช็คอินย่าน Tsim Sha Tsui</p>
-                    <span class="map-hint"><i class="fas fa-directions"></i> Tap to navigate</span>
-                </div>
+        <div class="border-l border-blue-500 pl-6 relative">
+            <div class="absolute w-2 h-2 bg-blue-500 rounded-full -left-[4.5px] top-1"></div>
+            <p class="text-[10px] text-blue-400 font-bold mb-1" data-i18n="d1-tag">DAY 01 | ARRIVAL</p>
+            <h4 class="text-lg mb-2" data-i18n="d1-title">Check-in & Chill</h4>
+            <div class="text-xs text-gray-400 leading-relaxed" data-i18n="d1-desc">
+                Landing 23:40. นั่งแท็กซี่ตรงเข้าที่พัก <strong>Ramada Grand</strong> พักผ่อนให้เต็มที่เพื่อเริ่มสงครามพรุ่งนี้
             </div>
         </div>
 
         <!-- Day 2 -->
-        <div class="relative pl-8 mb-6">
-            <div class="absolute left-0 top-0 bg-blue-500 w-6 h-6 rounded-full flex items-center justify-center z-10">
-                <span class="text-[10px] text-white font-bold">23</span>
-            </div>
-            <div class="step-line relative">
-                <h3 class="font-bold text-blue-400" data-i18n="d2-title">23 เม.ย. - วิวเมืองและจุดเช็คอิน</h3>
-                <div class="card mt-2 place-card" onclick="openMap('peak')">
-                    <img src="https://images.unsplash.com/photo-1506450983270-3595889ad362?auto=format&fit=crop&w=600&q=80" alt="Victoria Peak" class="place-img">
-                    <p class="text-sm font-bold mb-1"><i class="fas fa-map-pin text-red-500 mr-1"></i> Victoria Peak</p>
-                    <p class="text-xs text-gray-400" data-i18n="d2-desc">ขึ้น Victoria Peak ชมวิวเมือง และ Avenue of Stars ดูโชว์ไฟริมอ่าว</p>
-                    <span class="map-hint"><i class="fas fa-directions"></i> Tap to navigate</span>
-                </div>
+        <div class="border-l border-gray-800 pl-6 relative">
+            <div class="absolute w-2 h-2 bg-gray-800 rounded-full -left-[4.5px] top-1"></div>
+            <p class="text-[10px] text-gray-500 font-bold mb-1" data-i18n="d2-tag">DAY 02 | PEAK & STARS</p>
+            <h4 class="text-lg mb-2" data-i18n="d2-title">Vibe & Dining</h4>
+            <div class="text-xs text-gray-400 leading-relaxed space-y-2" id="d2-content">
+                <!-- Content will be injected by JS for full translation -->
             </div>
         </div>
 
         <!-- Day 3 -->
-        <div class="relative pl-8 mb-6">
-            <div class="absolute left-0 top-0 bg-blue-500 w-6 h-6 rounded-full flex items-center justify-center z-10">
-                <span class="text-[10px] text-white font-bold">24</span>
-            </div>
-            <div class="step-line relative">
-                <h3 class="font-bold text-blue-400" data-i18n="d3-title">24 เม.ย. - ดินแดนเวทมนตร์</h3>
-                <div class="card mt-2 place-card" onclick="openMap('disney')">
-                    <img src="https://images.unsplash.com/photo-1505881402582-c5bc11054f91?auto=format&fit=crop&w=600&q=80" alt="Disneyland" class="place-img">
-                    <p class="text-sm font-bold mb-1"><i class="fas fa-map-pin text-red-500 mr-1"></i> HK Disneyland</p>
-                    <p class="text-xs text-gray-400" data-i18n="d3-desc">ใช้เวลาทั้งวันที่ Hong Kong Disneyland ชมพลุช่วงกลางคืน</p>
-                    <span class="map-hint"><i class="fas fa-directions"></i> Tap to navigate</span>
-                </div>
+        <div class="border-l border-gray-800 pl-6 relative">
+            <div class="absolute w-2 h-2 bg-gray-800 rounded-full -left-[4.5px] top-1"></div>
+            <p class="text-[10px] text-gray-500 font-bold mb-1" data-i18n="d3-tag">DAY 03 | DISNEYLAND</p>
+            <h4 class="text-lg mb-2" data-i18n="d3-title">The Magic Day</h4>
+            <div class="text-xs text-gray-400 leading-relaxed space-y-2" id="d3-content">
+                <!-- Content injected by JS -->
             </div>
         </div>
 
         <!-- Day 4 -->
-        <div class="relative pl-8 mb-6">
-            <div class="absolute left-0 top-0 bg-blue-500 w-6 h-6 rounded-full flex items-center justify-center z-10">
-                <span class="text-[10px] text-white font-bold">25</span>
-            </div>
-            <div class="step-line relative">
-                <h3 class="font-bold text-blue-400" data-i18n="d4-title">25 เม.ย. - นองปิงและพระใหญ่</h3>
-                <div class="card mt-2 place-card" onclick="openMap('np360')">
-                    <img src="https://images.unsplash.com/photo-1513413173474-26330620953a?auto=format&fit=crop&w=600&q=80" alt="Ngong Ping" class="place-img">
-                    <p class="text-sm font-bold mb-1"><i class="fas fa-map-pin text-red-500 mr-1"></i> Ngong Ping 360</p>
-                    <p class="text-xs text-gray-400" data-i18n="d4-desc">นั่งกระเช้า Ngong Ping 360 ไหว้พระใหญ่เทียนถาน และช้อปปิ้ง Outlets</p>
-                    <span class="map-hint"><i class="fas fa-directions"></i> Tap to navigate</span>
-                </div>
+        <div class="border-l border-gray-800 pl-6 relative">
+            <div class="absolute w-2 h-2 bg-gray-800 rounded-full -left-[4.5px] top-1"></div>
+            <p class="text-[10px] text-gray-500 font-bold mb-1" data-i18n="d4-tag">DAY 04 | PRAY & SHOP</p>
+            <h4 class="text-lg mb-2" data-i18n="d4-title">Soul & Wallet</h4>
+            <div class="text-xs text-gray-400 leading-relaxed space-y-2" id="d4-content">
+                <!-- Content injected by JS -->
             </div>
         </div>
-    </section>
+    </div>
+
+    <div class="h-20"></div>
 
     <script>
         const translations = {
             th: {
-                "island-pill": "แผนเที่ยวฮ่องกง 2026",
-                "next-flight": "เที่ยวบินถัดไป",
-                "title": "แผนการเดินทางฮ่องกง",
-                "subtitle": "22 - 26 เมษายน 2026 (5 วัน 4 คืน)",
-                "accommodation": "ที่พัก",
-                "baggage": "น้ำหนักกระเป๋า",
-                "baggage-detail": "ไป: 20kg / กลับ: 20kg",
-                "flight-info": "ข้อมูลการเดินทาง",
-                "outbound": "ขาไป - HK Express",
-                "inbound": "ขากลับ - Thai Lion Air",
-                "baggage-20": "น้ำหนักสัมภาระโหลด: 20kg (อัปเดตแล้ว)",
-                "meal-included": "รวมน้ำหนัก 20kg และอาหารบนเครื่อง",
-                "itinerary-title": "แผนการเที่ยวรายวัน",
-                "d1-title": "22 เม.ย. - เดินทางถึงฮ่องกง",
-                "d1-desc": "บินถึงเวลา 23:40 น. เข้าเช็คอินย่าน Tsim Sha Tsui",
-                "d2-title": "23 เม.ย. - วิวเมืองและจุดเช็คอิน",
-                "d2-desc": "ขึ้น Victoria Peak ชมวิวเมือง และ Avenue of Stars",
-                "d3-title": "24 เม.ย. - ดินแดนเวทมนตร์",
-                "d3-desc": "ใช้เวลาทั้งวันที่ Hong Kong Disneyland",
-                "d4-title": "25 เม.ย. - นองปิงและพระใหญ่",
-                "d4-desc": "นั่งกระเช้า Ngong Ping 360 ไหว้พระใหญ่เทียนถาน"
+                "island-pill": "HK EXCLUSIVE 2026",
+                "title": "ฮ่องกง",
+                "subtitle": "22-26 เม.ย. 2026 / 5 วัน",
+                "accommodation": "ที่พักหลัก",
+                "hotel-loc": "จิมซาจุ่ย, เกาลูน",
+                "open-map": "เปิดแผนที่",
+                "baggage-label": "สัมภาระ",
+                "weather-label": "อากาศ",
+                "flight-info": "รายละเอียดเที่ยวบิน",
+                "itinerary-title": "แผนการเดินทาง",
+                "d1-tag": "วันที่ 01 | เดินทางถึง",
+                "d1-title": "เช็คอิน & พักผ่อน",
+                "d1-desc": "Landing 23:40 นั่งแท็กซี่ตรงเข้าที่พัก Ramada Grand พักผ่อนให้เต็มที่เพื่อเริ่มสงครามพรุ่งนี้",
+                "d2-tag": "วันที่ 02 | ยอดเขา & ดวงดาว",
+                "d2-title": "บรรยากาศ & ดินเนอร์",
+                "d2-eat": "กิน: มื้อเช้าติ่มซำที่ One Dim Sum ระดับมิชลิน",
+                "d2-do": "ทำ: ขึ้น The Peak ชมวิวฮ่องกง และ Avenue of Stars",
+                "d2-shop": "ช้อป: เดิน Harbour City แบรนด์เนมครบจบที่เดียว",
+                "d3-tag": "วันที่ 03 | ดิสนีย์แลนด์",
+                "d3-title": "วันแห่งเวทมนตร์",
+                "d3-do": "ทำ: Full Day ที่ Disneyland เน้นโซน World of Frozen",
+                "d3-eat": "กิน: มื้อดึกหลังสวนสนุกปิดที่ Ichiran Ramen ย่าน TST",
+                "d3-tip": "ทริค: จองคิวเข้าโซนเอลซ่าตั้งแต่สวนสนุกเปิด!",
+                "d4-tag": "วันที่ 04 | ศรัทธา & ช้อปปิ้ง",
+                "d4-title": "เสริมดวง & ละลายทรัพย์",
+                "d4-do": "ทำ: กระเช้านองปิง 360 ไหว้พระใหญ่เทียนถานเสริมดวง",
+                "d4-shop": "ช้อป: Citygate Outlets ลดหนักมากตรงทางขึ้นกระเช้า",
+                "d4-eat": "กิน: ห่านย่างในตำนานที่ Kam's Roast Goose"
             },
             en: {
-                "island-pill": "HK TRIP 2026",
-                "next-flight": "NEXT FLIGHT",
-                "title": "Hong Kong Itinerary",
-                "subtitle": "April 22 - 26, 2026 (5D4N)",
-                "accommodation": "Hotel",
-                "baggage": "Baggage",
-                "baggage-detail": "Go: 20kg / Back: 20kg",
-                "flight-info": "Flight Information",
-                "outbound": "Outbound - HK Express",
-                "inbound": "Inbound - Thai Lion Air",
-                "baggage-20": "Checked Baggage: 20kg (Updated)",
-                "meal-included": "20kg Baggage & Meal Included",
-                "itinerary-title": "Daily Itinerary",
-                "d1-title": "Apr 22 - Arrival in Hong Kong",
-                "d1-desc": "Arrive at 23:40. Check-in at Tsim Sha Tsui",
-                "d2-title": "Apr 23 - City Views & Landmarks",
-                "d2-desc": "Visit Victoria Peak and Avenue of Stars",
-                "d3-title": "Apr 24 - Magical Journey",
-                "d3-desc": "Spend a full day at Hong Kong Disneyland",
-                "d4-title": "Apr 25 - Ngong Ping 360",
-                "d4-desc": "Ride the cable car to Big Buddha"
+                "island-pill": "HK EXCLUSIVE 2026",
+                "title": "HONG KONG",
+                "subtitle": "22-26 APR 2026 / 5 DAYS",
+                "accommodation": "PRIMARY STAY",
+                "hotel-loc": "Tsim Sha Tsui, Kowloon",
+                "open-map": "Open in Maps",
+                "baggage-label": "BAGGAGE",
+                "weather-label": "WEATHER",
+                "flight-info": "FLIGHT DETAILS",
+                "itinerary-title": "ITINERARY",
+                "d1-tag": "DAY 01 | ARRIVAL",
+                "d1-title": "Check-in & Rest",
+                "d1-desc": "Landing 23:40. Taxi straight to Ramada Grand. Rest up for the battle tomorrow.",
+                "d2-tag": "DAY 02 | PEAK & STARS",
+                "d2-title": "Vibe & Dining",
+                "d2-eat": "Eat: Michelin-starred Dim Sum at One Dim Sum",
+                "d2-do": "Do: Victoria Peak views and Avenue of Stars",
+                "d2-shop": "Shop: Harbour City for all luxury brands",
+                "d3-tag": "DAY 03 | DISNEYLAND",
+                "d3-title": "The Magic Day",
+                "d3-do": "Do: Full Day at Disneyland (World of Frozen focus)",
+                "d3-eat": "Eat: Late-night Ichiran Ramen at TST",
+                "d3-tip": "Tip: Book Frozen zone entry as soon as gates open!",
+                "d4-tag": "DAY 04 | PRAY & SHOP",
+                "d4-title": "Soul & Wallet",
+                "d4-do": "Do: Ngong Ping 360 & Big Buddha for good luck",
+                "d4-shop": "Shop: Heavy discounts at Citygate Outlets",
+                "d4-eat": "Eat: Legendary Kam's Roast Goose"
             },
             cn: {
-                "island-pill": "2026 香港之行",
-                "next-flight": "下一班航班",
-                "title": "我的香港行程表",
-                "subtitle": "2026年4月22日 - 26日 (5天4夜)",
-                "accommodation": "住宿",
-                "baggage": "行李重量",
-                "baggage-detail": "去程: 20kg / 回程: 20kg",
-                "flight-info": "航班信息",
-                "outbound": "去程 - 香港快運",
-                "inbound": "回程 - 泰國獅子航空",
-                "baggage-20": "托運行李: 20kg (已更新)",
-                "meal-included": "包含20kg行李和機上餐食",
-                "itinerary-title": "每日行程",
-                "d1-title": "4月22日 - 抵達香港",
-                "d1-desc": "23:40 抵達，入住尖沙咀酒店",
-                "d2-title": "4月23日 - 城市景觀",
-                "d2-desc": "登太平山頂俯瞰全景，前往星光大道",
-                "d3-title": "4月24日 - 迪士尼樂園",
-                "d3-desc": "全天遊玩香港迪士尼樂園",
-                "d4-title": "4月25日 - 昂坪360",
-                "d4-desc": "乘坐昂坪纜車參拜天壇大佛"
+                "island-pill": "2026 香港尊享",
+                "title": "香港之旅",
+                "subtitle": "4月22-26日 / 5天",
+                "accommodation": "主要住宿",
+                "hotel-loc": "尖沙咀, 九龍",
+                "open-map": "打開地圖",
+                "baggage-label": "行李重量",
+                "weather-label": "天氣概況",
+                "flight-info": "航班詳情",
+                "itinerary-title": "行程安排",
+                "d1-tag": "第一天 | 抵達",
+                "d1-title": "入住 & 休息",
+                "d1-desc": "23:40 抵達。直接乘計程車前往華美達酒店。好好休息，迎接明天。",
+                "d2-tag": "第二天 | 山頂 & 星光",
+                "d2-title": "氛圍 & 美食",
+                "d2-eat": "食: 米其林推薦 一點心 (One Dim Sum)",
+                "d2-do": "行: 太平山頂觀景 & 星光大道",
+                "d2-shop": "購: 海港城 (Harbour City) 一站式購物",
+                "d3-tag": "第三天 | 迪士尼",
+                "d3-title": "夢幻之旅",
+                "d3-do": "行: 香港迪士尼樂園全日遊 (冰雪奇緣專區)",
+                "d3-eat": "食: 閉園後去尖沙咀吃一蘭拉麵",
+                "d3-tip": "小貼士: 開園即刻預約魔雪奇緣世界入園!",
+                "d4-tag": "第四天 | 朝聖 & 購物",
+                "d4-title": "心靈 & 錢包",
+                "d4-do": "行: 昂坪360纜車 & 參拜天壇大佛",
+                "d4-shop": "購: 東薈城名店倉 (Citygate Outlets)",
+                "d4-eat": "食: 傳奇甘牌燒鵝 (Kam's Roast Goose)"
             }
         };
 
         const mapLinks = {
-            hotel: "https://www.google.com/maps/search/?api=1&query=Ramada+Grand+Hotel+Hong+Kong+Tsim+Sha+Tsui",
-            peak: "https://www.google.com/maps/search/?api=1&query=Victoria+Peak+Hong+Kong",
-            disney: "https://www.google.com/maps/search/?api=1&query=Hong+Kong+Disneyland",
-            np360: "https://www.google.com/maps/search/?api=1&query=Ngong+Ping+360+Cable+Car"
+            hotel: "https://www.google.com/maps/search/?api=1&query=Ramada+Grand+Hotel+Tsim+Sha+Tsui+Hong+Kong",
+            'one-dimsum': "https://www.google.com/maps/search/?api=1&query=One+Dim+Sum+Hong+Kong",
+            ichiran: "https://www.google.com/maps/search/?api=1&query=Ichiran+Ramen+Tsim+Sha+Tsui",
+            citygate: "https://www.google.com/maps/search/?api=1&query=Citygate+Outlets+Hong+Kong",
+            'kam-roast': "https://www.google.com/maps/search/?api=1&query=Kam's+Roast+Goose+Hong+Kong"
         };
 
         function openMap(key) {
             window.open(mapLinks[key], '_blank');
         }
 
-        function setLang(lang) {
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('lang-active', 'bg-blue-600'));
-            document.getElementById('btn-' + lang).classList.add('lang-active', 'bg-blue-600');
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.textContent = translations[lang][key];
-            });
+        function renderDynamicContent(lang) {
+            // Day 2
+            document.getElementById('d2-content').innerHTML = `
+                <p><i class="fas fa-utensils mr-2"></i> <strong>${translations[lang]['d2-eat'].split(':')[0]}:</strong> ${translations[lang]['d2-eat'].split(':')[1]}</p>
+                <p><i class="fas fa-camera mr-2"></i> <strong>${translations[lang]['d2-do'].split(':')[0]}:</strong> ${translations[lang]['d2-do'].split(':')[1]}</p>
+                <p><i class="fas fa-shopping-bag mr-2"></i> <strong>${translations[lang]['d2-shop'].split(':')[0]}:</strong> ${translations[lang]['d2-shop'].split(':')[1]}</p>
+            `;
+            // Day 3
+            document.getElementById('d3-content').innerHTML = `
+                <p><i class="fas fa-ticket-alt mr-2"></i> <strong>${translations[lang]['d3-do'].split(':')[0]}:</strong> ${translations[lang]['d3-do'].split(':')[1]}</p>
+                <p><i class="fas fa-utensils mr-2"></i> <strong>${translations[lang]['d3-eat'].split(':')[0]}:</strong> ${translations[lang]['d3-eat'].split(':')[1]}</p>
+                <p><i class="fas fa-magic mr-2"></i> <strong>${translations[lang]['d3-tip'].split(':')[0]}:</strong> ${translations[lang]['d3-tip'].split(':')[1]}</p>
+            `;
+            // Day 4
+            document.getElementById('d4-content').innerHTML = `
+                <p><i class="fas fa-pray mr-2"></i> <strong>${translations[lang]['d4-do'].split(':')[0]}:</strong> ${translations[lang]['d4-do'].split(':')[1]}</p>
+                <p><i class="fas fa-shopping-cart mr-2"></i> <strong>${translations[lang]['d4-shop'].split(':')[0]}:</strong> ${translations[lang]['d4-shop'].split(':')[1]}</p>
+                <p><i class="fas fa-utensils mr-2"></i> <strong>${translations[lang]['d4-eat'].split(':')[0]}:</strong> ${translations[lang]['d4-eat'].split(':')[1]}</p>
+            `;
         }
 
-        const themeToggle = document.getElementById('themeToggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            const icon = themeToggle.querySelector('i');
-            icon.classList.toggle('fa-sun');
-            icon.classList.toggle('fa-moon');
-        });
+        function setLang(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('lang-active'));
+            document.getElementById('btn-' + lang).classList.add('lang-active');
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    // Check if it has bold tags in translation and use innerHTML
+                    if (translations[lang][key].includes('<strong>')) {
+                        el.innerHTML = translations[lang][key];
+                    } else {
+                        el.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            renderDynamicContent(lang);
+        }
+
+        // Initialize with TH
+        window.onload = () => setLang('th');
     </script>
 </body>
 </html>
